@@ -1,9 +1,11 @@
-﻿using ElevenNote.Models;
+﻿using ElevenNote.Data;
+using ElevenNote.Models;
 using ElevenNote.Services;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -13,19 +15,30 @@ namespace ElevenNote.WebMVC.Controllers
     public class NoteController : Controller
     {
         // GET: Note
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var userId = Guid.Parse(User.Identity.GetUserId());
-            var service = new NoteService(userId);
-            var model = service.GetNotes();
-
-            return View(model);
+            return View(CreateNoteService().GetNotes());
         }
 
-        //GET
-        public ActionResult Create()
+        //GET: Create
+        public async Task<ActionResult> Create()
         {
-            return View();
+            ViewBag.Title = "Create";
+            ViewBag.RandomMessageThing = "Hello!!";
+            List<SelectListItem> list = new List<SelectListItem>();
+            var service = new CategoryService();
+            IEnumerable<Category> Categories = (await service.GetCategories());
+            var selectList = Categories.Select(c => new SelectListItem()
+            {
+                Value = c.CategoryId.ToString(),
+                Text = c.Name
+            }).ToList();
+
+            NoteCreate newNote = new NoteCreate()
+            {
+                Categories = selectList
+            };
+            return View(newNote);
         }
 
         [HttpPost]
@@ -34,9 +47,7 @@ namespace ElevenNote.WebMVC.Controllers
         {
             if (!ModelState.IsValid) return View(model);
 
-            var service = CreateNoteService();
-
-            if (service.CreateNote(model))
+            if (CreateNoteService().CreateNote(model))
             {
                 TempData["SaveResult"] = "Your note was created.";
                 return RedirectToAction("Index");
@@ -115,6 +126,7 @@ namespace ElevenNote.WebMVC.Controllers
 
             return RedirectToAction("Index");
         }
+
         private NoteService CreateNoteService()
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
@@ -123,3 +135,13 @@ namespace ElevenNote.WebMVC.Controllers
         }
     }
 }
+
+/*List<Category> Categories = (await service.GetCategories()).ToList();
+var query = from c in Categories
+            select new SelectListItem()
+            {
+                Value = c.CategoryId.ToString(),
+                Text = c.Name
+            };
+li = query.ToList();
+ViewBag.CategoryId = li;*/

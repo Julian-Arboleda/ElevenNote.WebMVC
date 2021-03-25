@@ -17,7 +17,5 @@ namespace ElevenNote.Models.Category
         [MaxLength(25, ErrorMessage = "There are too many characters in this field.")]
         public string Name { get; set; }
 
-        [DefaultValue("false")]
-        public bool IsUserOwned { get; set; }
     }
 }

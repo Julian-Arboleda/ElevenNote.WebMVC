@@ -72,8 +72,7 @@
                 .click(function (e) {
                     var target = $(e.target);
                     var noteId = target.attr("data-id");
-                    var starSet = target.hasClass("glyphicon-star");
-
+                    var starSet = target.hasClass("fa-star");
                     $.ajax({
                         method: starSet ? "DELETE" : "PUT",
                         url: "/api/note/" + noteId + "/star",
@@ -81,7 +80,7 @@
                     })
                         .done(function (r) {
                             target.removeClass();
-                            target.addClass("glyphicon " + (starSet ? "glyphicon-star-empty" : "glyphicon-star"));
+                            target.addClass(starSet ? "fa fa-star-o text-dark" : "fa fa-star gold");
                         })
                         .fail(function (r) {
                             alert("Failed to change star status");

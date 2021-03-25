@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace ElevenNote.Models
 {
@@ -16,5 +17,8 @@ namespace ElevenNote.Models
         
         [MaxLength(8000)]
         public string Content { get; set; }
+
+        public string CategoryId { get; set; } 
+        public List<SelectListItem> Categories { get; set; }
     }
 }

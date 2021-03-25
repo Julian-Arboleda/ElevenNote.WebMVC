@@ -13,6 +13,5 @@ namespace ElevenNote.Data
         public int CategoryId { get; set; }
         public Guid OwnerId { get; set; }
         public string Name { get; set; }
-        public bool IsUserOwned { get; set; }
     }
 }

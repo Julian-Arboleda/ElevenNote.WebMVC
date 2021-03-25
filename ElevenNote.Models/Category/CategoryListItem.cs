@@ -13,8 +13,5 @@ namespace ElevenNote.Models.Category
 
         [Display(Name = "Category")]
         public string Name { get; set; }
-        public string Notes { get; set; }
-
-        public bool IsUserOwned { get; set; }
     }
 }

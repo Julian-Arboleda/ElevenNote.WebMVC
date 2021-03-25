@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ElevenNote.Models.Category
 {
-    public class CategoryDetails
+    public class CategoryDetail
     {
         public int CategoryId { get; set; }
 
