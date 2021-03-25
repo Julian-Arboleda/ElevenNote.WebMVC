@@ -15,9 +15,9 @@ namespace ElevenNote.WebMVC.Controllers
     public class NoteController : Controller
     {
         // GET: Note
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            return View(CreateNoteService().GetNotes());
+            return  View(CreateNoteService().GetNotes());
         }
 
         //GET: Create

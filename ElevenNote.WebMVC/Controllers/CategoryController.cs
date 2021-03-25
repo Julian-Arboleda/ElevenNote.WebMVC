@@ -15,7 +15,6 @@ namespace ElevenNote.WebMVC.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly ApplicationDbContext _db = new ApplicationDbContext();
         [Authorize]
         // GET: Category
         public async Task<ActionResult> Index()
